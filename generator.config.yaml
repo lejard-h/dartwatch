@@ -1,0 +1,9 @@
+project: 
+  components: "client/components"
+  css_extension: "css"
+  directives: "client/directives"
+  html_extension: "html"
+  pipes: "client/pipes"
+  root: "client/components/app.dart"
+  routes: "client/routes"
+  services: "client/services"

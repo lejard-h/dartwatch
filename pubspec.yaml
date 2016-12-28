@@ -1,0 +1,25 @@
+name: darty
+version: 0.0.1
+no_publish: true
+
+dependencies:
+  angular2: ^2.2.0
+  browser: ^0.10.0
+  dart_to_js_script_rewriter: ^1.0.1
+  dart_feed: ^0.0.4
+  jsonp: ^2.0.0
+  serializer: ^0.5.0
+  jaguar:
+    git: https://github.com/Jaguar-dart/jaguar.git
+  angular2_components: ^0.2.0
+
+transformers:
+  - angular2:
+      platform_directives:
+        - 'package:angular2/common.dart#COMMON_DIRECTIVES'
+      platform_pipes:
+        - 'package:angular2/common.dart#COMMON_PIPES'
+      entry_points: web/index.dart
+  - dart_to_js_script_rewriter
+  - $dart2js:
+      minify: false

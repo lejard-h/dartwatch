@@ -1,0 +1,15 @@
+<div class="header">
+    <img class="so-logo" src="packages/darty/assets/stackoverflow-logo.png" *ngIf="isStackOverflow"/>
+    <img class="dart-logo" src="packages/darty/assets/dart-logo.png" *ngIf="isNewsDartlang || isDartAcademy"/>
+    <span class="title"> {{post.title}}</span>
+</div>
+<div class="content" #content></div>
+<div class="footer">
+    <span class="date">{{post.published | date:'medium' }}</span>
+    <span class="author">{{author}}</span>
+    <a target="_blank" class="button" href="{{post.link}}">
+        <span *ngIf="isStackOverflow">StackOverflow</span>
+        <span *ngIf="isNewsDartlang">Dartlang</span>
+        <span *ngIf="isDartAcademy">Dart Academy</span>
+    </a>
+</div>

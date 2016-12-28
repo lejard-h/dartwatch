@@ -1,0 +1,30 @@
+:host {
+    z-index: 98;
+    top: 0;
+    position: fixed;
+    padding-top: 6.5rem;
+    height: 100vh;
+    width: 300px;
+    background-color: white;
+    border-right: 1px solid #dfdfdf;
+    display: flex;
+    flex-direction: column;
+}
+
+:host .settings {
+    flex: 1;
+    width: 100%;
+}
+
+:host .settings .toggle {
+    width: 100%;
+    text-align: center;
+}
+
+:host .pub-packages {
+    width: 100%;
+}
+
+:host material-toggle {
+    padding: 16px;
+}

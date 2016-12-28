@@ -1,0 +1,7 @@
+<feed-sidenav [settings]="settings"></feed-sidenav>
+<div class="list-card">
+    <post-card class="animated fadeInLeft" *ngFor="let item of feed"
+               [post]="item"
+               (expand)="onExpand($event)"
+               [expanded]="current == item"></post-card>
+</div>

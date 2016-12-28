@@ -1,0 +1,5 @@
+:host div.main {
+    padding-top: 6.5rem;
+    width: 100vw;
+    height: calc(100vh - 6.5rem);
+}

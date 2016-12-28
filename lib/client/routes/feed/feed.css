@@ -1,0 +1,18 @@
+:host .list-card {
+    padding-top: 1rem;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 300px;
+    width: calc(100% - 300px);
+}
+
+:host .card {
+    margin-left: auto;
+    margin-right: auto;
+    width: 93%;
+}
+
+:host {
+    display: block;
+}
