@@ -9,10 +9,12 @@ part of api;
 
 abstract class _$JaguarDartWatchApi implements RequestHandler {
   static const List<RouteBase> routes = const <RouteBase>[
-    const Route('/list-posts',
+    const Route(
+        path: '/list-posts',
         methods: const ["GET"],
         headers: const {"Access-Control-Allow-Origin": "*"}),
-    const Route('/list-pub',
+    const Route(
+        path: '/list-pub',
         methods: const ["GET"],
         headers: const {"Access-Control-Allow-Origin": "*"})
   ];
@@ -33,33 +35,43 @@ abstract class _$JaguarDartWatchApi implements RequestHandler {
     bool match = false;
     QueryParams queryParams = new QueryParams(request.uri.queryParameters);
 
+//Handler for listPosts
     match =
         routes[0].match(request.uri.path, request.method, prefix, pathParams);
     if (match) {
-      Response rRouteResponse = new Response(null);
-      rRouteResponse.statusCode = 200;
-      rRouteResponse.headers['Access-Control-Allow-Origin'] = '*';
-      rRouteResponse.value = listPosts(
-        limit: stringToInt(queryParams.getField('limit')) ?? 10,
-        from: (queryParams.getField('from')),
-        to: (queryParams.getField('to')),
-        sort: stringToInt(queryParams.getField('sort')) ?? -1,
-        so: stringToBool(queryParams.getField('so')) ?? true,
-        dl: stringToBool(queryParams.getField('dl')) ?? true,
-        da: stringToBool(queryParams.getField('da')) ?? true,
-      );
-      await rRouteResponse.writeResponse(request.response);
+      Response<String> rRouteResponse0 = new Response(null);
+      try {
+        rRouteResponse0.statusCode = 200;
+        rRouteResponse0.headers['Access-Control-Allow-Origin'] = '*';
+        rRouteResponse0.value = listPosts(
+          limit: stringToInt(queryParams.getField('limit')) ?? 10,
+          from: (queryParams.getField('from')),
+          to: (queryParams.getField('to')),
+          sort: stringToInt(queryParams.getField('sort')) ?? -1,
+          so: stringToBool(queryParams.getField('so')) ?? true,
+          dl: stringToBool(queryParams.getField('dl')) ?? true,
+          da: stringToBool(queryParams.getField('da')) ?? true,
+        );
+        await rRouteResponse0.writeResponse(request.response);
+      } catch (e) {
+        rethrow;
+      }
       return true;
     }
 
+//Handler for listPub
     match =
         routes[1].match(request.uri.path, request.method, prefix, pathParams);
     if (match) {
-      Response rRouteResponse = new Response(null);
-      rRouteResponse.statusCode = 200;
-      rRouteResponse.headers['Access-Control-Allow-Origin'] = '*';
-      rRouteResponse.value = listPub();
-      await rRouteResponse.writeResponse(request.response);
+      Response<String> rRouteResponse0 = new Response(null);
+      try {
+        rRouteResponse0.statusCode = 200;
+        rRouteResponse0.headers['Access-Control-Allow-Origin'] = '*';
+        rRouteResponse0.value = listPub();
+        await rRouteResponse0.writeResponse(request.response);
+      } catch (e) {
+        rethrow;
+      }
       return true;
     }
 

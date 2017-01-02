@@ -6,19 +6,20 @@ import 'package:http/src/utils.dart';
 import 'package:http/src/response.dart';
 import 'package:dartwatch/models/post.dart';
 import 'package:dartwatch/models/serializer.dart';
-import 'package:dartwatch/components.dart';
+import 'package:dartwatch/client/services.dart';
 
 @Injectable()
 class FeedService {
   BrowserClient _http = new BrowserClient();
   final String api = "http://localhost:8080";
+  Settings _settings;
 
   List<Post> feed = [];
 
-  Future<List<Post>> fetchPost({int limit: 15, Post lastPost, Settings settings}) async {
+  Future<List<Post>> fetchPost({int limit: 15, Post lastPost}) async {
     Map<String, String> query = {
       "limit": limit.toString(),
-    }..addAll(settings?.toMapString() ?? {});
+    }..addAll(_settings?.toMapString() ?? {});
     if (lastPost != null) {
       query["to"] = lastPost.published.toIso8601String();
     }
@@ -44,5 +45,5 @@ class FeedService {
     return p;
   }
 
-  FeedService();
+  FeedService(this._settings);
 }

@@ -83,7 +83,7 @@ class DartWatchApi extends _$JaguarDartWatchApi {
         return new model.NewsDartlangPost.fromXml(entry);
       }) as Future<List<model.NewsDartlangPost>>;
 
-  @Route('/list-posts', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
+  @Route(path: '/list-posts', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
   String listPosts({int limit: 10, String from, String to, int sort: -1, bool so: true, bool dl: true, bool da: true}) {
     DateTime fromDate = from != null ? DateTime.parse(from) : null;
     DateTime toDate = to != null ? DateTime.parse(to) : null;
@@ -117,7 +117,7 @@ class DartWatchApi extends _$JaguarDartWatchApi {
     return true;
   }
 
-  @Route('/list-pub', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
+  @Route(path: '/list-pub', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
   String listPub() {
     List<model.Post> posts = _pubPosts;
     posts.sort(_sortPosts);

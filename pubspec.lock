@@ -85,12 +85,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  cookies:
-    description:
-      name: cookies
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.3"
   crypto:
     description:
       name: crypto
@@ -171,18 +165,16 @@ packages:
     version: "0.2.3"
   jaguar:
     description:
-      ref: HEAD
-      resolved-ref: "20a3630f2c71d9a2e8989afdbde39fe0f9ae6727"
-      url: "https://github.com/Jaguar-dart/jaguar.git"
-    source: git
-    version: "0.0.3"
+      name: jaguar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.9"
   jaguar_generator:
     description:
-      ref: HEAD
-      resolved-ref: f6d6fe400ec0e143174b22ae026e70ae9f5cb536
-      url: "https://github.com/Jaguar-dart/jaguar_generator.git"
-    source: git
-    version: "0.0.1"
+      name: jaguar_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.15"
   js:
     description:
       name: js
@@ -317,11 +309,11 @@ packages:
     version: "0.5.2"
   source_gen_help:
     description:
-      ref: HEAD
-      resolved-ref: a585d1e610883186fa7e7818bdabcc79db5f6bb8
+      ref: "4acd8b6"
+      resolved-ref: "4acd8b6f0a0911e5b615feb0a1374e40683f359d"
       url: "https://github.com/Jaguar-dart/source_gen_help.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.3"
   source_maps:
     description:
       name: source_maps

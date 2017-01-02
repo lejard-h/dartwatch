@@ -1,8 +1,9 @@
 import 'dart:html';
+
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
-import 'package:dartwatch/services.dart';
-import 'package:dartwatch/components.dart';
+import 'package:dartwatch/client/components.dart';
+import 'package:dartwatch/client/services.dart';
 import 'package:dartwatch/models/post.dart';
 import 'package:material2_dart/material.dart';
 
@@ -20,27 +21,15 @@ class Main implements OnInit {
 
   FeedService _feedService;
   bool _fetching = false;
-  Settings settings = new Settings();
-
-  Main(this._feedService);
-
-  bool _inFilter(bool so, bool dl, bool da, Post post) =>
-      (post is StackoverflowPost && so != false) ||
-      (post is DartAcademyPost && da != false) ||
-      (post is NewsDartlangPost && dl != false);
-
-  List<Post> get feed => _feedService.feed
-      .where((Post p) => _inFilter(settings.stackOverflow, settings.dartlang, settings.dartAcademy, p)).toList();
+  Settings _settings;
 
   Post current;
 
-  void onExpand(Post p) {
-    if (current == p) {
-      current = null;
-    } else {
-      current = p;
-    }
-  }
+  Main(this._feedService, this._settings);
+
+  List<Post> get feed => _feedService.feed
+      .where((Post p) => _inFilter(_settings.stackOverflow, _settings.dartlang, _settings.dartAcademy, p))
+      .toList();
 
   @override
   ngOnInit() async {
@@ -56,4 +45,17 @@ class Main implements OnInit {
       }
     });
   }
+
+  void onExpand(Post p) {
+    if (current == p) {
+      current = null;
+    } else {
+      current = p;
+    }
+  }
+
+  bool _inFilter(bool so, bool dl, bool da, Post post) =>
+      (post is StackoverflowPost && so != false) ||
+      (post is DartAcademyPost && da != false) ||
+      (post is NewsDartlangPost && dl != false);
 }
