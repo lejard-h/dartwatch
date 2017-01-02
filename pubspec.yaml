@@ -26,6 +26,5 @@ transformers:
   - $dart2js:
       minify: true
       commandLineOptions:
-                  - --fast-startup
                   - --trust-primitives
                   - --trust-type-annotations
