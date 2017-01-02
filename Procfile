@@ -1,1 +1,1 @@
-web: /app/dart-sdk/bin/dart bin/server.dart --port=8080
+web: /app/dart-sdk/bin/dart bin/server.dart
