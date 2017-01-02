@@ -2,7 +2,7 @@ import 'package:build/build.dart';
 import 'package:jaguar_generator/phase/import.dart';
 import 'package:serializer/build.dart' as ser;
 
-const String library = "darty";
+const String library = "dartwatch";
 const List<String> jaguar_files = const ['lib/server/api.dart'];
 const List<String> models = const ["lib/models/post.dart"];
 

@@ -4,9 +4,9 @@ import "package:angular2/core.dart";
 import 'package:http/browser_client.dart';
 import 'package:http/src/utils.dart';
 import 'package:http/src/response.dart';
-import 'package:darty/models/post.dart';
-import 'package:darty/models/serializer.dart';
-import 'package:darty/components.dart';
+import 'package:dartwatch/models/post.dart';
+import 'package:dartwatch/models/serializer.dart';
+import 'package:dartwatch/components.dart';
 
 @Injectable()
 class FeedService {

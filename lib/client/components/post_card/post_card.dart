@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'package:angular2/core.dart';
-import 'package:darty/models/post.dart';
+import 'package:dartwatch/models/post.dart';
 
 @Component(
     selector: 'post-card',
@@ -14,7 +14,6 @@ class PostCard implements OnInit {
   @Input()
   Post post;
 
-
   String get author => post?.authors?.isNotEmpty == true ? post.authors.first : "";
 
   bool get isStackOverflow => post is StackoverflowPost;
@@ -27,5 +26,4 @@ class PostCard implements OnInit {
       (contentRef.nativeElement as DivElement).appendHtml(post.content, treeSanitizer: NodeTreeSanitizer.trusted);
     }
   }
-
 }

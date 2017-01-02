@@ -2,7 +2,7 @@ import 'dart:html';
 import 'dart:convert';
 import 'package:angular2/core.dart';
 import 'package:angular2_components/angular2_components.dart';
-import 'package:darty/models/post.dart';
+import 'package:dartwatch/models/post.dart';
 
 @Component(
     selector: 'feed-sidenav',

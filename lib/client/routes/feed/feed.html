@@ -1,7 +1,11 @@
-<feed-sidenav [settings]="settings"></feed-sidenav>
-<div class="list-card">
-    <post-card class="animated fadeInLeft" *ngFor="let item of feed"
-               [post]="item"
-               (expand)="onExpand($event)"
-               [expanded]="current == item"></post-card>
-</div>
+<md-sidenav-layout>
+    <md-sidenav #start (open)="mybutton.focus()" [opened]="true" mode="side">
+        <feed-sidenav [settings]="settings"></feed-sidenav>
+    </md-sidenav>
+    <div class="list-card">
+        <post-card class="animated fadeInLeft" *ngFor="let item of feed"
+                   [post]="item"
+                   (expand)="onExpand($event)"
+                   [expanded]="current == item"></post-card>
+    </div>
+</md-sidenav-layout>

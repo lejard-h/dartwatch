@@ -1,9 +1,9 @@
 import 'package:jaguar/jaguar.dart' as jaguar;
-import 'package:darty/server/api.dart';
+import 'package:dartwatch/server/api.dart';
 
 main() async {
   jaguar.Configuration configuration = new jaguar.Configuration(multiThread: false);
-  configuration.addApi(new DartyApi());
+  configuration.addApi(new DartWatchApi());
 
   await jaguar.serve(configuration);
 }

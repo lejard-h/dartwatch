@@ -1,12 +1,7 @@
 :host {
-    z-index: 98;
-    top: 0;
-    position: fixed;
-    padding-top: 6.5rem;
-    height: 100vh;
-    width: 300px;
+    height: 100%;
+    width: 100%;
     background-color: white;
-    border-right: 1px solid #dfdfdf;
     display: flex;
     flex-direction: column;
 }

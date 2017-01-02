@@ -4,10 +4,10 @@ part of api;
 
 // **************************************************************************
 // Generator: ApiGenerator
-// Target: class DartyApi
+// Target: class DartWatchApi
 // **************************************************************************
 
-abstract class _$JaguarDartyApi implements RequestHandler {
+abstract class _$JaguarDartWatchApi implements RequestHandler {
   static const List<RouteBase> routes = const <RouteBase>[
     const Route('/list-posts',
         methods: const ["GET"],

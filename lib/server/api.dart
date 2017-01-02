@@ -8,8 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:http/src/response.dart' as http_response;
 import 'package:xml/xml.dart';
 import 'package:dart_feed/dart_feed.dart';
-import 'package:darty/models/post.dart' as model;
-import 'package:darty/models/serializer.dart';
+import 'package:dartwatch/models/post.dart' as model;
+import 'package:dartwatch/models/serializer.dart';
 
 part 'api.g.dart';
 
@@ -18,7 +18,7 @@ typedef model.Post EntryParser(XmlElement entry);
 typedef model.Post ItemParser(Item item);
 
 @Api()
-class DartyApi extends _$JaguarDartyApi {
+class DartWatchApi extends _$JaguarDartWatchApi {
   static const int _refreshMinutes = 5;
 
   List<model.PubPost> _pubPosts = [];
@@ -26,7 +26,7 @@ class DartyApi extends _$JaguarDartyApi {
   List<model.NewsDartlangPost> _newsPosts = [];
   List<model.DartAcademyPost> _dartAcademy = [];
 
-  DartyApi() {
+  DartWatchApi() {
     _refresh();
     new Timer.periodic(const Duration(minutes: _refreshMinutes), (Timer _) {
       _refresh();

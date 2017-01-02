@@ -1,15 +1,16 @@
 import 'dart:html';
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
-import 'package:darty/services.dart';
-import 'package:darty/components.dart';
-import 'package:darty/models/post.dart';
+import 'package:dartwatch/services.dart';
+import 'package:dartwatch/components.dart';
+import 'package:dartwatch/models/post.dart';
+import 'package:material2_dart/material.dart';
 
 @Component(
     selector: 'feed',
     templateUrl: 'feed.html',
     styleUrls: const <String>['feed.css'],
-    directives: const [PostCard, FeedSidenav],
+    directives: const [PostCard, FeedSidenav, MD_SIDENAV_DIRECTIVES, MD_BUTTON_DIRECTIVES],
     providers: const [FeedService])
 class Main implements OnInit {
   static const String route_name = "Feed";

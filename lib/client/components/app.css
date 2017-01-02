@@ -1,5 +1,13 @@
 :host div.main {
-    padding-top: 6.5rem;
     width: 100vw;
-    height: calc(100vh - 6.5rem);
+    padding-top: 2px;
+    height: calc(100vh - 66px);
+}
+
+:host md-toolbar .title {
+    padding-right: 32px;
+}
+
+:host md-toolbar {
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
