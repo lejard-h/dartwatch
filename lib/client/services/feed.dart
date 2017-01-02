@@ -16,7 +16,7 @@ class FeedService {
 
   List<Post> feed = [];
 
-  Future<List<Post>> fetchPost({int limit: 15, Post lastPost}) async {
+  Future<List<Post>> fetchPost({int limit: 5, Post lastPost}) async {
     Map<String, String> query = {
       "limit": limit.toString(),
     }..addAll(_settings?.toMapString() ?? {});
