@@ -25,3 +25,7 @@ transformers:
   - dart_to_js_script_rewriter
   - $dart2js:
       minify: true
+      commandLineOptions:
+                  - --fast-startup
+                  - --trust-primitives
+                  - --trust-type-annotations
