@@ -9,7 +9,7 @@ import 'package:dartwatch/client/services.dart';
     templateUrl: 'feed_sidenav.html',
     styleUrls: const <String>['feed_sidenav.css'],
     directives: const [materialDirectives],
-    providers: const [materialProviders, LocalStorage])
+    providers: const [materialProviders])
 class FeedSidenav {
 
   Settings settings;

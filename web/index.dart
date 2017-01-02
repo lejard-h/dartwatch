@@ -8,8 +8,8 @@ import 'package:dartwatch/client/services.dart';
 main() {
   bootstrap(App, [
     ROUTER_PROVIDERS,
-    Settings,
     LocalStorage,
+    Settings,
     const Provider(APP_BASE_HREF, useValue: ''),
     const Provider(LocationStrategy, useClass: HashLocationStrategy)
   ]);
