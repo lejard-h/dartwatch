@@ -175,6 +175,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.15"
+  jaguar_static_file:
+    description:
+      ref: HEAD
+      resolved-ref: "7e9d98324bbf19f3295c40ff5620a5ba70814c99"
+      url: "https://github.com/Jaguar-dart/jaguar_static_file.git"
+    source: git
+    version: "0.1.0"
   js:
     description:
       name: js

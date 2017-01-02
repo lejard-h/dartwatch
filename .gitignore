@@ -1,0 +1,9 @@
+.dart_tool/
+.idea/
+.packages
+.pub/
+build/
+tool/packages
+web/packages
+bin/packages
+packages/

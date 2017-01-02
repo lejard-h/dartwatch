@@ -11,7 +11,7 @@ import 'package:dartwatch/client/services.dart';
 @Injectable()
 class FeedService {
   BrowserClient _http = new BrowserClient();
-  final String api = "http://localhost:8080";
+  final String api = "";
   Settings _settings;
 
   List<Post> feed = [];

@@ -2,6 +2,7 @@ library api;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:jaguar/jaguar.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ import 'package:xml/xml.dart';
 import 'package:dart_feed/dart_feed.dart';
 import 'package:dartwatch/models/post.dart' as model;
 import 'package:dartwatch/models/serializer.dart';
+//import 'package:jaguar_static_file/jaguar_static_file.dart';
 
 part 'api.g.dart';
 
@@ -20,13 +22,14 @@ typedef model.Post ItemParser(Item item);
 @Api()
 class DartWatchApi extends _$JaguarDartWatchApi {
   static const int _refreshMinutes = 5;
+  final bool isProd;
 
   List<model.PubPost> _pubPosts = [];
   List<model.StackoverflowPost> _stackoverflowPosts = [];
   List<model.NewsDartlangPost> _newsPosts = [];
   List<model.DartAcademyPost> _dartAcademy = [];
 
-  DartWatchApi() {
+  DartWatchApi(this.isProd) {
     _refresh();
     new Timer.periodic(const Duration(minutes: _refreshMinutes), (Timer _) {
       _refresh();
@@ -124,5 +127,72 @@ class DartWatchApi extends _$JaguarDartWatchApi {
     return serializer.encode(posts);
   }
 
+  @override
+  Future<bool> handleRequest(HttpRequest request, {String prefix: ''}) async {
+    bool res = await super.handleRequest(request, prefix: '');
+    if (res == false) {
+      String file = request.uri.path;
+      if (file == null || file.isEmpty) {
+        file = "index.html";
+      }
+      print("${Directory.current.path}/web$file");
+      Response<JaguarFile> rRouteResponse0 = new Response(null);
+      StaticFile iStaticFile;
+      try {
+        iStaticFile = new WrapStaticFile().createInterceptor();
+        rRouteResponse0.statusCode = 200;
+        if (isProd) {
+          rRouteResponse0.value = new JaguarFile("${Directory.current.path}/build/web$file");
+        }
+        rRouteResponse0.value = new JaguarFile("${Directory.current.path}/web$file");
+        Response<dynamic> rRouteResponse1 = await iStaticFile.post(
+          rRouteResponse0,
+        );
+        await rRouteResponse1.writeResponse(request.response);
+      } catch (e) {
+        await iStaticFile?.onException();
+        rethrow;
+      }
+    }
+    return true;
+  }
+
   int _sortPosts(model.Post a, model.Post b) => a.published.millisecondsSinceEpoch - b.published.millisecondsSinceEpoch;
+}
+
+class WrapStaticFile implements RouteWrapper<StaticFile> {
+  final String charset;
+  final Encoding encoding;
+
+  final String id;
+  final Map<Symbol, MakeParam> makeParams;
+
+  const WrapStaticFile({this.charset: 'utf-8', this.encoding: UTF8, this.id, this.makeParams});
+
+  StaticFile createInterceptor() => new StaticFile(charset: charset, encoding: encoding);
+}
+
+class StaticFile extends Interceptor {
+  final String charset;
+  final Encoding encoding;
+
+  const StaticFile({this.charset: 'utf-8', this.encoding: UTF8});
+
+  @InputRouteResponse()
+  Future<Response> post(Response<JaguarFile> response) async {
+    File f = new File(response.value.filePath);
+    if (!await f.exists()) {
+      return new Response<String>("Not Found", statusCode: 404);
+    }
+    Map<String, String> headers = {};
+    //  TODO: add more content-type
+    if (f.path.endsWith(".html")) {
+      headers['Content-Type'] = "text/html; charset=$charset";
+    } else if (f.path.endsWith(".js")) {
+      headers['Content-Type'] = "text/javascript; charset=$charset";
+    } else if (f.path.endsWith(".css")) {
+      headers['Content-Type'] = "text/css; charset=$charset";
+    }
+    return new Response<Stream>(await f.openRead(), statusCode: 200, headers: headers);
+  }
 }
