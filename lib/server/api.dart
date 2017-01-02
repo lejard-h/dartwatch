@@ -132,7 +132,7 @@ class DartWatchApi extends _$JaguarDartWatchApi {
     bool res = await super.handleRequest(request, prefix: '');
     if (res == false) {
       String file = request.uri.path;
-      if (file == null || file.isEmpty) {
+      if (file == null || file.isEmpty || file == "/") {
         file = "index.html";
       }
 
