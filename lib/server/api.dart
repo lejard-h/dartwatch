@@ -135,16 +135,19 @@ class DartWatchApi extends _$JaguarDartWatchApi {
       if (file == null || file.isEmpty) {
         file = "index.html";
       }
-      print("${Directory.current.path}/web$file");
+
       Response<JaguarFile> rRouteResponse0 = new Response(null);
       StaticFile iStaticFile;
       try {
         iStaticFile = new WrapStaticFile().createInterceptor();
         rRouteResponse0.statusCode = 200;
         if (isProd) {
+          print("${Directory.current.path}/build/web$file");
           rRouteResponse0.value = new JaguarFile("${Directory.current.path}/build/web$file");
+        } else {
+          print("${Directory.current.path}/web$file");
+          rRouteResponse0.value = new JaguarFile("${Directory.current.path}/web$file");
         }
-        rRouteResponse0.value = new JaguarFile("${Directory.current.path}/web$file");
         Response<dynamic> rRouteResponse1 = await iStaticFile.post(
           rRouteResponse0,
         );
