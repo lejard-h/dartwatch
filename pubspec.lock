@@ -178,7 +178,7 @@ packages:
   jaguar_spa:
     description:
       ref: HEAD
-      resolved-ref: "9b6dcf8c1fd8602b26b706e562cc657e859a16b8"
+      resolved-ref: "4d50f254f0c02c339770a179babe8d6a56063676"
       url: "https://github.com/lejard-h/jaguar_spa.git"
     source: git
     version: "0.0.1"
