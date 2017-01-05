@@ -33,7 +33,7 @@ class Main implements OnInit {
 
   @override
   ngOnInit() async {
-    _feedService.feed = await _feedService.fetchPost(limit: 50);
+    _feedService.feed = await _feedService.fetchPost();
     window.onScroll.listen((Event e) {
       if (feed?.isNotEmpty == true && _fetching == false) {
         if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {

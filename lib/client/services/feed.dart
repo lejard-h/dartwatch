@@ -16,10 +16,10 @@ class FeedService {
 
   List<Post> feed = [];
 
-  Future<List<Post>> fetchPost({int limit: 5, Post lastPost}) async {
+  Future<List<Post>> fetchPost({int limit: 10, Post lastPost}) async {
     Map<String, String> query = {
       "limit": limit.toString(),
-    }..addAll(_settings?.toMapString() ?? {});
+    };
     if (lastPost != null) {
       query["to"] = lastPost.published.toIso8601String();
     }
@@ -36,7 +36,7 @@ class FeedService {
 
   Future<List<Post>> fetchNext() async {
     last ??= feed.last;
-    List<Post> p = await fetchPost(lastPost: last, limit: 5);
+    List<Post> p = await fetchPost(lastPost: last, limit: 10);
     if (p.isNotEmpty == true) {
       last = p.last;
       feed.addAll(p);
