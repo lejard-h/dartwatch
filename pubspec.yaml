@@ -12,8 +12,9 @@ dependencies:
   jaguar: ^0.1.9
   angular2_components: ^0.2.0
   material2_dart: ^0.4.4
-  jaguar_static_file:
-    git: https://github.com/Jaguar-dart/jaguar_static_file.git
+  jaguar_spa:
+    git: https://github.com/lejard-h/jaguar_spa.git
+
 
 transformers:
   - angular2:
@@ -26,5 +27,6 @@ transformers:
   - $dart2js:
       minify: true
       commandLineOptions:
-                  - --trust-primitives
-                  - --trust-type-annotations
+        - --enable-experimental-mirrors
+        - --trust-primitives
+        - --trust-type-annotations

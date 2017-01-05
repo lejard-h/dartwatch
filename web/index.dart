@@ -11,6 +11,6 @@ main() {
     LocalStorage,
     Settings,
     const Provider(APP_BASE_HREF, useValue: ''),
-    const Provider(LocationStrategy, useClass: HashLocationStrategy)
+    //const Provider(LocationStrategy, useClass: HashLocationStrategy)
   ]);
 }
