@@ -10,20 +10,26 @@ import 'package:dartwatch/client/services.dart';
 
 @Injectable()
 class FeedService {
+  Post _last;
   BrowserClient _http = new BrowserClient();
   final String api = "";
   Settings _settings;
+  static const num pull_feed_limit = 10;
 
   List<Post> feed = [];
 
-  Future<List<Post>> fetchPost({int limit: 10, Post lastPost}) async {
+  List<Post> get filteredFeed =>
+      feed.where((Post p) => _inFilter(_settings.stackOverflow, _settings.dartlang, _settings.dartAcademy, p)).toList();
+
+  Future<List<Post>> fetchPost({int limit: pull_feed_limit, Post lastPost}) async {
     Map<String, String> query = {
       "limit": limit.toString(),
-    };
+    } /*..addAll(_settings?.toMapString() ?? {})*/;
+    ;
     if (lastPost != null) {
       query["to"] = lastPost.published.toIso8601String();
     }
-    String url = "$api/list-posts?${mapToQuery(query, encoding: UTF8)}";
+    String url = "$api/posts?${mapToQuery(query, encoding: UTF8)}";
     Response res = await _http.get(url);
     if (res.statusCode == 200) {
       return serializer.decode(res.body, useTypeInfo: true);
@@ -32,18 +38,37 @@ class FeedService {
     return [];
   }
 
-  Post last;
+  Future<List<Post>> fetchLastPosts({int limit: pull_feed_limit}) async {
+    Map<String, String> query = {
+      "limit": limit.toString(),
+    };
 
-  Future<List<Post>> fetchNext() async {
-    last ??= feed.last;
-    List<Post> p = await fetchPost(lastPost: last, limit: 10);
+    String url = "$api/posts/last?${mapToQuery(query, encoding: UTF8)}";
+    Response res = await _http.get(url);
+    if (res.statusCode == 200) {
+      return serializer.decode(res.body, useTypeInfo: true);
+    }
+
+    return [];
+  }
+
+  Future<List<Post>> fetchNext({int limit: pull_feed_limit}) async {
+    if (feed.isNotEmpty) {
+      _last ??= feed.last;
+    }
+    List<Post> p = await fetchPost(lastPost: _last, limit: pull_feed_limit);
     if (p.isNotEmpty == true) {
-      last = p.last;
+      _last = p.last;
       feed.addAll(p);
     }
 
     return p;
   }
+
+  bool _inFilter(bool so, bool dl, bool da, Post post) =>
+      (post is StackoverflowPost && so != false) ||
+      (post is DartAcademyPost && da != false) ||
+      (post is NewsDartlangPost && dl != false);
 
   FeedService(this._settings);
 }

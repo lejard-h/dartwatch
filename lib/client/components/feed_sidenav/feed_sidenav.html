@@ -1,12 +1,12 @@
 <div class="settings">
     <div class="toggle">
-        <material-toggle [checked]="settings.stackOverflow" (checkedChange)="settings.stackOverflow = $event" label="StackOverflow"></material-toggle>
+        <material-toggle [checked]="settings.stackOverflow" (checkedChange)="stOnChange($event)" label="StackOverflow"></material-toggle>
     </div>
     <div class="toggle">
-        <material-toggle [checked]="settings.dartlang" (checkedChange)="settings.dartlang = $event" label="Dartlang News"></material-toggle>
+        <material-toggle [checked]="settings.dartlang" (checkedChange)="dnOnChange($event)" label="Dartlang News"></material-toggle>
     </div>
     <div class="toggle">
-        <material-toggle [checked]="settings.dartAcademy" (checkedChange)="settings.dartAcademy = $event" label="Dart Academy"></material-toggle>
+        <material-toggle [checked]="settings.dartAcademy" (checkedChange)="daOnChange($event)" label="Dart Academy"></material-toggle>
     </div>
 </div>
 <div class="pub-packages"></div>

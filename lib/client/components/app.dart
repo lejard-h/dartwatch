@@ -10,7 +10,7 @@ import 'package:material2_dart/material.dart';
     directives: const [ROUTER_DIRECTIVES, MdToolbar])
 @RouteConfig(const <dynamic>[
   /*Insert Routes here*/
-  Numbers.route,
+ // Numbers.route,
   Main.route,
 ])
 class App {}

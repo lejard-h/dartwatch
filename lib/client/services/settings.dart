@@ -54,4 +54,6 @@ class Settings {
   _save() {
     _storage.saveString(_storageKey, JSON.encode(_map));
   }
+
+  bool hasOnlyFalse() => _map.values.every((bool v) => v == false);
 }

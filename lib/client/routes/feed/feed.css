@@ -1,23 +1,32 @@
+:host {
+    width: 100vw;
+    padding-top: 2px;
+    flex: 1;
+    overflow-y: hidden;
+    z-index: 1;
+}
+
 :host .list-card {
+    height: calc(100% - 74px);
     padding-top: 1rem;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    margin-left: 300px;
-    width: calc(100% - 300px);
+    width: 100%;
+    overflow-y: scroll;
 }
 
 :host .card {
     margin-left: auto;
     margin-right: auto;
-    width: 93%;
+    width: 80%;
 }
 
-:host {
-    display: block;
+@media screen and (max-width: 640px) {
+    :host .card {
+        width: 100%;
+    }
 }
 
-:host md-sidenav {
-    width: 300px;
-    background-color: white;
-}
+
+

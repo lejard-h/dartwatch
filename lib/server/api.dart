@@ -20,7 +20,7 @@ typedef model.Post EntryParser(XmlElement entry);
 
 typedef model.Post ItemParser(Item item);
 
-@Api()
+@Api(path: "/posts")
 class DartWatchApi extends _$JaguarDartWatchApi {
   static const int _refreshMinutes = 5;
 
@@ -86,8 +86,8 @@ class DartWatchApi extends _$JaguarDartWatchApi {
         return new model.NewsDartlangPost.fromXml(entry);
       }) as Future<List<model.NewsDartlangPost>>;
 
-  @Route(path: '/list-posts', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
-  String listPosts({int limit: 10, String from, String to, int sort: -1, bool so: true, bool dl: true, bool da: true}) {
+  @Route(path: '', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
+  String listPosts({int limit: 10, String from, String to, int sort: 1, bool so: true, bool dl: true, bool da: true}) {
     DateTime fromDate = from != null ? DateTime.parse(from) : null;
     DateTime toDate = to != null ? DateTime.parse(to) : null;
     List<model.Post> posts = []..addAll(_newsPosts)..addAll(_stackoverflowPosts)..addAll(_dartAcademy);
@@ -100,6 +100,24 @@ class DartWatchApi extends _$JaguarDartWatchApi {
       limit = posts.length;
     }
     posts = posts.getRange(0, limit).toList();
+    return serializer.encode(posts);
+  }
+
+  @Route(path: '/last', methods: const ["GET"], headers: const {"Access-Control-Allow-Origin": "*"})
+  String listLastPosts({int limit: 10}) {
+    List<model.Post> posts = [];
+    _newsPosts.sort(_sortPosts);
+    _stackoverflowPosts.sort(_sortPosts);
+    _dartAcademy.sort(_sortPosts);
+
+    posts.addAll(_newsPosts.getRange(0, limit > _newsPosts.length ? _newsPosts.length : limit));
+    posts.addAll(_stackoverflowPosts.getRange(0, limit > _stackoverflowPosts.length ? _stackoverflowPosts.length : limit));
+    posts.addAll(_dartAcademy.getRange(0, limit > _dartAcademy.length ? _dartAcademy.length : limit));
+
+    posts.sort((model.Post a, model.Post b) {
+      return _sortPosts(a, b);
+    });
+
     return serializer.encode(posts);
   }
 
@@ -127,6 +145,6 @@ class DartWatchApi extends _$JaguarDartWatchApi {
     return serializer.encode(posts);
   }
 
-  int _sortPosts(model.Post a, model.Post b) => a.published.millisecondsSinceEpoch - b.published.millisecondsSinceEpoch;
+  int _sortPosts(model.Post a, model.Post b) => b.published.millisecondsSinceEpoch - a.published.millisecondsSinceEpoch;
 }
 

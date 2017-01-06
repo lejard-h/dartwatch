@@ -10,7 +10,11 @@ part of api;
 abstract class _$JaguarDartWatchApi implements RequestHandler {
   static const List<RouteBase> routes = const <RouteBase>[
     const Route(
-        path: '/list-posts',
+        path: '',
+        methods: const ["GET"],
+        headers: const {"Access-Control-Allow-Origin": "*"}),
+    const Route(
+        path: '/last',
         methods: const ["GET"],
         headers: const {"Access-Control-Allow-Origin": "*"}),
     const Route(
@@ -23,14 +27,17 @@ abstract class _$JaguarDartWatchApi implements RequestHandler {
       {int limit: 10,
       String from,
       String to,
-      int sort: -1,
+      int sort: 1,
       bool so: true,
       bool dl: true,
       bool da: true});
 
+  String listLastPosts({int limit: 10});
+
   String listPub();
 
   Future<bool> handleRequest(HttpRequest request, {String prefix: ''}) async {
+    prefix += '/posts';
     PathParams pathParams = new PathParams();
     bool match = false;
     QueryParams queryParams = new QueryParams(request.uri.queryParameters);
@@ -47,7 +54,7 @@ abstract class _$JaguarDartWatchApi implements RequestHandler {
           limit: stringToInt(queryParams.getField('limit')) ?? 10,
           from: (queryParams.getField('from')),
           to: (queryParams.getField('to')),
-          sort: stringToInt(queryParams.getField('sort')) ?? -1,
+          sort: stringToInt(queryParams.getField('sort')) ?? 1,
           so: stringToBool(queryParams.getField('so')) ?? true,
           dl: stringToBool(queryParams.getField('dl')) ?? true,
           da: stringToBool(queryParams.getField('da')) ?? true,
@@ -59,9 +66,27 @@ abstract class _$JaguarDartWatchApi implements RequestHandler {
       return true;
     }
 
-//Handler for listPub
+//Handler for listLastPosts
     match =
         routes[1].match(request.uri.path, request.method, prefix, pathParams);
+    if (match) {
+      Response<String> rRouteResponse0 = new Response(null);
+      try {
+        rRouteResponse0.statusCode = 200;
+        rRouteResponse0.headers['Access-Control-Allow-Origin'] = '*';
+        rRouteResponse0.value = listLastPosts(
+          limit: stringToInt(queryParams.getField('limit')) ?? 10,
+        );
+        await rRouteResponse0.writeResponse(request.response);
+      } catch (e) {
+        rethrow;
+      }
+      return true;
+    }
+
+//Handler for listPub
+    match =
+        routes[2].match(request.uri.path, request.method, prefix, pathParams);
     if (match) {
       Response<String> rRouteResponse0 = new Response(null);
       try {

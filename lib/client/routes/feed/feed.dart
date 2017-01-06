@@ -21,22 +21,23 @@ class Main implements OnInit {
 
   FeedService _feedService;
   bool _fetching = false;
-  Settings _settings;
-
   Post current;
+  List<Post> get feed => _feedService.filteredFeed;
 
-  Main(this._feedService, this._settings);
+  @ViewChild("list")
+  ElementRef refList;
 
-  List<Post> get feed => _feedService.feed
-      .where((Post p) => _inFilter(_settings.stackOverflow, _settings.dartlang, _settings.dartAcademy, p))
-      .toList();
+  Main(this._feedService);
 
   @override
   ngOnInit() async {
-    _feedService.feed = await _feedService.fetchPost();
-    window.onScroll.listen((Event e) {
+    _feedService.feed = await _feedService.fetchLastPosts();
+    refList.nativeElement.onScroll.listen((Event e) {
       if (feed?.isNotEmpty == true && _fetching == false) {
-        if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+        if ((refList.nativeElement as DivElement).scrollTop +
+                (refList.nativeElement as DivElement).offsetHeight +
+                100 >=
+            (refList.nativeElement as DivElement).scrollHeight) {
           _fetching = true;
           _feedService.fetchNext().then((_) {
             _fetching = false;
@@ -45,17 +46,4 @@ class Main implements OnInit {
       }
     });
   }
-
-  void onExpand(Post p) {
-    if (current == p) {
-      current = null;
-    } else {
-      current = p;
-    }
-  }
-
-  bool _inFilter(bool so, bool dl, bool da, Post post) =>
-      (post is StackoverflowPost && so != false) ||
-      (post is DartAcademyPost && da != false) ||
-      (post is NewsDartlangPost && dl != false);
 }
